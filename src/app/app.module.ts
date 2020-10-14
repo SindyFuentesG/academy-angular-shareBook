@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from '../environments/environment';
 
 //Modules
 import { AppRoutingModule } from './app-routing.module';
@@ -9,7 +11,13 @@ import { BookModule } from './book/book.module';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, SharedModule, BookModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    SharedModule,
+    BookModule,
+    AngularFireModule.initializeApp(environment.firebase),
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

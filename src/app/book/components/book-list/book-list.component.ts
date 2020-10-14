@@ -10,11 +10,14 @@ import { BooksManagerServiceService } from '../../services/books-manager-service
 export class BookListComponent implements OnInit {
   bookList: Array<IBooksList> = [];
 
-  constructor(private booksManagerServiceService: BooksManagerServiceService) {
-    this.bookList = booksManagerServiceService.getBookList();
-  }
+  constructor(private booksManagerServiceService: BooksManagerServiceService) {}
 
   ngOnInit(): void {
+    //this.bookList = this.booksManagerServiceService.getBookList();
+    this.booksManagerServiceService.bookList.subscribe((books) => {
+      this.bookList = books;
+    });
+
     // this.addNewBookTest();
   }
 

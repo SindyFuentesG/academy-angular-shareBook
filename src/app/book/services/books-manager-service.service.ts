@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { IBooksList } from '../models/books';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +9,15 @@ import { IBooksList } from '../models/books';
 export class BooksManagerServiceService {
   bookList = new BehaviorSubject<IBooksList[]>([]);
 
-  constructor() {}
+  constructor(private firestore: AngularFirestore) {
+    firestore
+      .collection('books')
+      .valueChanges()
+      .subscribe((books: Array<IBooksList>) => {
+        //console.log(books);
+        this.bookList.next(books);
+      });
+  }
 
   getBookList() {
     return this.bookList.getValue();
